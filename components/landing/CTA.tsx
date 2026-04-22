@@ -32,21 +32,13 @@ export function CTA() {
       service,
     };
     try {
-      const endpoint = process.env.NEXT_PUBLIC_BRIEF_ENDPOINT;
-      if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error("bad status");
-      } else {
-        // Dev fallback: just wait so the UX is real
-        await new Promise((r) => setTimeout(r, 800));
-        if (typeof window !== "undefined") {
-          console.info("[ADLEN brief]", payload);
-        }
-      }
+      const endpoint = process.env.NEXT_PUBLIC_BRIEF_ENDPOINT || "/api/brief";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("bad status");
       setState("sent");
     } catch {
       setState("error");
