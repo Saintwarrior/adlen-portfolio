@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #0a0907;
+  --color-ink-2: #141209;
+  --color-ink-3: #1d1a12;
+  --color-ink-4: #26221a;
+  --color-line: #2a2620;
+  --color-line-2: #3c362c;
+  --color-mute: #8a857b;
+  --color-mute-2: #b6b1a6;
+  --color-paper: #f2ede4;
+  --color-paper-2: #d8d2c4;
+  --color-paper-3: #a9a299;
+  --color-acid: #d4ff4a;
+  --color-acid-2: #bce83e;
+  --color-acid-soft: rgba(212, 255, 74, 0.12);
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), "Times New Roman", ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", Consolas, monospace;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swift: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --container-wide: 1440px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::selection {
+  background: var(--color-acid);
+  color: var(--color-ink);
+}
+
+::-moz-selection {
+  background: var(--color-acid);
+  color: var(--color-ink);
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-mute);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- Utilities ---------- */
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.kicker-paper {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+}
+
+.num-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.display-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.display-sans {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--color-line);
+}
+
+.section-divider {
+  border-top: 1px solid var(--color-line);
+}
+
+.ring-hover {
+  transition:
+    box-shadow 0.4s var(--ease-expo),
+    transform 0.4s var(--ease-expo);
+}
+.ring-hover:hover {
+  box-shadow: inset 0 0 0 1px var(--color-mute);
+}
+
+/* Grain overlay used on body */
+.grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.32 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.marquee-track {
+  animation: marquee 48s linear infinite;
+  will-change: transform;
+}
+
+.marquee-fast {
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-fast {
+    animation: none;
+  }
+}
+
+/* Live dot */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+}
+.dot-live {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* Underline rise on hover */
+.u-rise {
+  position: relative;
+  display: inline-block;
+}
+.u-rise::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-expo);
+}
+.u-rise:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Marker highlight behind text */
+.marker {
+  background: linear-gradient(
+    to top,
+    var(--color-acid-soft) 58%,
+    transparent 58%
+  );
+}
+
+/* Arrow diag */
+.arrow-ne {
+  display: inline-block;
+  transition: transform 0.4s var(--ease-expo);
+}
+.group:hover .arrow-ne,
+*:hover > .arrow-ne {
+  transform: translate(2px, -2px);
+}
+
+/* Tick divider */
+.tick::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--color-acid);
+  margin-right: 10px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+/* Numbered list items */
+.list-dash > li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.list-dash > li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-mute);
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--color-acid);
+  outline-offset: 3px;
+}
+
+/* Subtle radial at top of some sections */
+.bg-glow-top {
+  background:
+    radial-gradient(
+      ellipse 80% 40% at 50% 0%,
+      rgba(212, 255, 74, 0.06),
+      transparent 70%
+    ),
+    var(--color-ink);
 }
