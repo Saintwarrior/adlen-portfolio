@@ -16,6 +16,22 @@
   --color-acid-2: #bce83e;
   --color-acid-soft: rgba(212, 255, 74, 0.12);
 
+  /* Halyk Kazteleport demo theme */
+  --color-kzt-green: #007a5c;
+  --color-kzt-green-2: #06805f;
+  --color-kzt-green-soft: #e8f5ef;
+  --color-kzt-ochre: #f9b101;
+  --color-kzt-ochre-soft: #fdf1d2;
+  --color-kzt-bg: #f7f9f8;
+  --color-kzt-surface: #ffffff;
+  --color-kzt-ink: #0f1d18;
+  --color-kzt-ink-2: #23322c;
+  --color-kzt-mute: #6b7a74;
+  --color-kzt-line: #e6ece9;
+  --color-kzt-line-2: #d4ded8;
+  --color-kzt-danger: #c4443a;
+  --color-kzt-info: #2f6eb0;
+
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), "Times New Roman", ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, "SF Mono", Consolas, monospace;
@@ -23,7 +39,99 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-swift: cubic-bezier(0.77, 0, 0.175, 1);
 
+  --font-kzt-sans: var(--font-kzt-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-kzt-mono: var(--font-kzt-mono), ui-monospace, "SF Mono", Consolas, monospace;
+
   --container-wide: 1440px;
+}
+
+/* ---- Halyk Kazteleport demo shell ---- */
+.kzt-root {
+  font-family: var(--font-kzt-sans);
+  color-scheme: light;
+  overflow-x: hidden;
+}
+.kzt-root ::selection {
+  background: var(--color-kzt-green);
+  color: #fff;
+}
+.kzt-root ::-moz-selection {
+  background: var(--color-kzt-green);
+  color: #fff;
+}
+.kzt-root ::-webkit-scrollbar-track {
+  background: var(--color-kzt-bg);
+}
+.kzt-root ::-webkit-scrollbar-thumb {
+  background: var(--color-kzt-line-2);
+}
+.kzt-mono {
+  font-family: var(--font-kzt-mono);
+  font-variant-numeric: tabular-nums;
+}
+.kzt-kicker {
+  font-family: var(--font-kzt-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-kzt-mute);
+}
+.kzt-card {
+  background: var(--color-kzt-surface);
+  border: 1px solid var(--color-kzt-line);
+  border-radius: 16px;
+  box-shadow: 0 1px 0 rgba(15, 29, 24, 0.02);
+}
+.kzt-card--dense {
+  border-radius: 12px;
+}
+.kzt-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: var(--color-kzt-green-soft);
+  color: var(--color-kzt-green);
+}
+.kzt-pill--ochre {
+  background: var(--color-kzt-ochre-soft);
+  color: #8a6203;
+}
+.kzt-pill--mute {
+  background: #f1f4f2;
+  color: var(--color-kzt-mute);
+}
+.kzt-pill--danger {
+  background: #fbeae7;
+  color: var(--color-kzt-danger);
+}
+.kzt-pill--info {
+  background: #e7f0fa;
+  color: var(--color-kzt-info);
+}
+.kzt-link {
+  color: var(--color-kzt-green);
+  transition: color 0.2s ease;
+}
+.kzt-link:hover {
+  color: var(--color-kzt-green-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.kzt-focus:focus-visible {
+  outline: 2px solid var(--color-kzt-green);
+  outline-offset: 2px;
+}
+@keyframes kzt-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.kzt-dot-live {
+  animation: kzt-pulse 1.8s ease-in-out infinite;
 }
 
 :root {
