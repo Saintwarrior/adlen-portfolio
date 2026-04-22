@@ -24,15 +24,15 @@ jobs:
 
       - name: Build (static export)
         env:
-          NEXT_PUBLIC_SITE_URL: ${{ env.NEXT_PUBLIC_SITE_URL }}
-          NEXT_PUBLIC_BRIEF_ENDPOINT: ${{ env.NEXT_PUBLIC_BRIEF_ENDPOINT }}
-          STRAPI_URL: ${{ env.STRAPI_URL }}
-          STRAPI_TOKEN: ${{ env.STRAPI_TOKEN }}
+          NEXT_PUBLIC_SITE_URL: ${{ env.vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_BRIEF_ENDPOINT: ${{ env.vars.NEXT_PUBLIC_BRIEF_ENDPOINT }}
+          STRAPI_URL: ${{ env.vars.STRAPI_URL }}
+          STRAPI_TOKEN: ${{ env.secrets.STRAPI_TOKEN }}
         run: npm run build
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ env.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ env.secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ env.secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy out --project-name=adlen-portfolio --branch=main
