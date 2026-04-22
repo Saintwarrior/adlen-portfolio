@@ -25,9 +25,9 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
+console.log(process.env);
 
-const SITE_URL =
-  (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://adlen.kz");
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://adlen.kz";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
