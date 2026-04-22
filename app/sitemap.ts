@@ -3,7 +3,8 @@ import { getProjects } from "@/lib/strapi";
 
 export const dynamic = "force-static";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://adlen.kz";
+const SITE_URL =
+  (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://adlen.kz");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getProjects();
