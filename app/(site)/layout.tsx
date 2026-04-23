@@ -25,7 +25,6 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
-console.log(process.env);
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://adlen.kz";
 
@@ -84,7 +83,7 @@ export default function RootLayout({
       lang="ru"
       className={`${serif.variable} ${sans.variable} ${mono.variable}`}
     >
-      <body className="bg-ink text-paper min-h-screen antialiased">
+      <body className="site-root bg-ink text-paper min-h-screen antialiased">
         <div
           aria-hidden
           className="pointer-events-none fixed inset-0 z-[5] grain opacity-[0.05]"
